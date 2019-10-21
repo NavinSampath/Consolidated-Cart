@@ -20,6 +20,12 @@ public class GamingElements extends base {
 	 Actions ac = new Actions(driver);
 	 JavascriptExecutor js = (JavascriptExecutor) driver ;
 	 
+	 @FindBy(xpath ="//iframe[@name='yie-iframe-2fe77361-7691-5685-be7d-712c26886376-f6382748-8ec3-4bfe-9c0f-2333debb4fcd']")
+	 public WebElement logigpopiframe;
+	 
+	 @FindBy(xpath = "//*[@id=\"element-63776\"]")
+	 public WebElement logigpopiclose;
+	 
 	 @FindBy(xpath ="//ul[@class='other-brands brand-nav-left js-brand-nav-left']//li[1]//a[1]")
 	 public WebElement logitechbtn;
 	 
@@ -124,7 +130,12 @@ public class GamingElements extends base {
 	
 	public void openingallpartnertabs() throws InterruptedException
 	{
+		driver.get("https://www.logitechg.com/en-us");
 		current = driver.getWindowHandle();
+		driver.switchTo().frame(logigpopiframe);
+		//wb.until(ExpectedConditions.visibilityOf(logigpopiclose));
+		logipopclose.click();
+		driver.switchTo().defaultContent();
 		String selectLinkOpeninNewTab = Keys.chord(Keys.CONTROL,Keys.RETURN); 
 		logitechbtn.sendKeys(selectLinkOpeninNewTab);
 		driver.switchTo().window(current);
@@ -146,6 +157,7 @@ public class GamingElements extends base {
 	
 	public void addingproductsinlogitechg()
 	{
+		
 		harmburg.click();
 		ac.moveToElement(products).moveToElement(gamingmice).click().build().perform();
 		js.executeScript("arguments[0].scrollIntoView();", G604);

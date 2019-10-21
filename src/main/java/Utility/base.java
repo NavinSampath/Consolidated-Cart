@@ -19,10 +19,10 @@ public class base {
 	{
 		if (driver == null) {
 			if (browser.equals("chrome")) {
-				System.setProperty(	"webdriver.chrome.driver", "E:\\new code\\New folder\\ecomerse\\Drivers\\chromedriver.exe" );
+				System.setProperty(	"webdriver.chrome.driver", "C:\\Users\\Knavi\\Downloads\\2110\\Cart\\Drivers\\chromedriver.exe" );
 				driver =new ChromeDriver();
 			} else if (browser.equals("firefox")) {
-				System.setProperty("webdriver.gecko.driver", "C:\\Users\\Knavi\\OneDrive\\Desktop\\Navin'S\\bdd\\drivers\\geckodriver.exe");
+				System.setProperty("webdriver.gecko.driver", "C:\\Users\\Knavi\\Downloads\\2110\\Cart\\Drivers\\geckodriver.exe");
 				driver = new FirefoxDriver();
 			}
 		
