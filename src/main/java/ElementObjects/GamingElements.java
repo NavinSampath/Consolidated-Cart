@@ -1,11 +1,13 @@
 package ElementObjects;
 
+import java.awt.Robot;
 import java.util.ArrayList;
 import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchFrameException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
@@ -20,10 +22,10 @@ public class GamingElements extends base {
 	 Actions ac = new Actions(driver);
 	 JavascriptExecutor js = (JavascriptExecutor) driver ;
 	 
-	 @FindBy(xpath ="//iframe[@name='yie-iframe-2fe77361-7691-5685-be7d-712c26886376-f6382748-8ec3-4bfe-9c0f-2333debb4fcd']")
+	 @FindBy(xpath ="//div[@aria-hidden='false']//iframe")
 	 public WebElement logigpopiframe;
 	 
-	 @FindBy(xpath = "//*[@id=\"element-63776\"]")
+	 @FindBy(xpath = "//fieldset/following-sibling::button")
 	 public WebElement logigpopiclose;
 	 
 	 @FindBy(xpath ="//ul[@class='other-brands brand-nav-left js-brand-nav-left']//li[1]//a[1]")
@@ -49,6 +51,9 @@ public class GamingElements extends base {
 	
 	@FindBy(xpath = "//div[@class='product-grid-wrapper']//div[2]//a[1]//div[1]//div[1]//span[1]")
 	public  WebElement G604;
+	
+	@FindBy(xpath = "//div[5]//section[1]//div[3]//div[1]//div[1]//div[1]//div[2]//div[1]//a[1]")
+	public  WebElement CTA;
 	
 	@FindBy(xpath = "//div[@class='product-details product-info-banner']//span[contains(text(),'Add To Cart')]")
 	public WebElement Atc ;
@@ -87,8 +92,6 @@ public class GamingElements extends base {
 	@FindBy(xpath = "//div[@class='secondary-nav-cta']//div[@class='component-cta-button']")
 	public WebElement uebuynow ;
 	
-	
-	
 	@FindBy(xpath = "//a[contains(@class,'add-to-cart-btn btn btn-primary-inverted')]//span[contains(text(),'Add to cart')]")
 	public WebElement ueatc;
 	
@@ -117,6 +120,7 @@ public class GamingElements extends base {
 	@FindBy(xpath = "//a[@class='link-button js-addToCartBtn btn-apollo ciano secondary inverse']//span[contains(text(),'Add To Cart')]")
 	public WebElement logiatc;
 	
+	String esc ;
 	
 	Set<String> tabs ;
 	ArrayList<String> tabs1 ;
@@ -132,10 +136,6 @@ public class GamingElements extends base {
 	{
 		driver.get("https://www.logitechg.com/en-us");
 		current = driver.getWindowHandle();
-		driver.switchTo().frame(logigpopiframe);
-		//wb.until(ExpectedConditions.visibilityOf(logigpopiclose));
-		logipopclose.click();
-		driver.switchTo().defaultContent();
 		String selectLinkOpeninNewTab = Keys.chord(Keys.CONTROL,Keys.RETURN); 
 		logitechbtn.sendKeys(selectLinkOpeninNewTab);
 		driver.switchTo().window(current);
@@ -155,14 +155,34 @@ public class GamingElements extends base {
 		driver.switchTo().window(current);
 	}
 	
-	public void addingproductsinlogitechg()
+	public void jumppop() 
 	{
-		
-		harmburg.click();
-		ac.moveToElement(products).moveToElement(gamingmice).click().build().perform();
-		js.executeScript("arguments[0].scrollIntoView();", G604);
-		G604.click();
-		Atc.click();
+		if (driver.findElements(By.xpath("//div[@aria-hidden='false']//iframe")).size() != 0) 
+		{
+			driver.switchTo().frame(driver.findElement(By.xpath("//div[@aria-hidden='false']//iframe")));
+			ac.moveToElement(driver.findElement(By.xpath("//fieldset/following-sibling::button"))).perform();
+			driver.findElement(By.xpath("//fieldset/following-sibling::button")).click();
+			driver.switchTo().parentFrame();
+			}
+	}
+	
+	
+	
+	public void addingproductsinlogitechg() throws InterruptedException
+	{
+	
+		try {
+			harmburg.click();
+			Thread.sleep(3000);
+			ac.moveToElement(products).moveToElement(gamingmice).click().build().perform();
+			js.executeScript("arguments[0].scrollIntoView();", G604);
+			G604.click();
+			Atc.click();
+		}
+		finally {
+			jumppop();
+		}
+			
 		
 	}
 	
@@ -218,5 +238,6 @@ public class GamingElements extends base {
 		logiatc.click();
 		driver.navigate().back();
 	}
+	
 	
 }

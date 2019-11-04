@@ -22,9 +22,9 @@ public class Consolidatedcart {
 	@Then("^Add products from Gaming Mice$")
 	public void add_products_from_Gaming_Mice() throws Throwable {
 		ge.addingproductsinlogitechg();
-		//ge.addingproductsinastro();
-		//ge.addingproductsinjaybird();
-		//ge.addingproductsinue();
+		ge.addingproductsinastro();
+		ge.addingproductsinjaybird();
+		ge.addingproductsinue();
 		ge.addingproductsinlogi();
 	  
 	}
